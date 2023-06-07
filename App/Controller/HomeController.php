@@ -21,6 +21,6 @@ class HomeController extends Controller
     // }
     protected function home()
     {
-        $this->render('pages/home_page', []);
+        $this->render('pages/home_page', ['entree' => 'Salade de fruit']);
     }
 }

@@ -43,6 +43,8 @@
 
 <div class="container text-center">
     <article class="row align-items-start">
+
+        <!-- Card for horaires -->
         <div class="card col-xxl-4" style="border : none;">
             <div class="card-header">
                 Horaires
@@ -69,6 +71,8 @@
                 <li class="list-group-item">Soir : Fermé </li>
             </ul>
         </div>
+
+        <!-- Card for menu midi -->
         <div class="card col-xxl-4" style="border : none;">
             <img src="../../uploads/example-04.jpg" class="card-img-top rounded mt-2" alt="...">
             <div class="card-body">
@@ -76,7 +80,7 @@
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
+                <li class="list-group-item"><?= $entree ?></li>
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
             </ul>
@@ -86,6 +90,7 @@
             </div>
         </div>
 
+        <!-- Card for menu soir -->
         <div class="card col-xxl-4" style="border : none;">
             <img src="../../uploads/example-05.jpg" class="card-img-top rounded mt-2" alt="...">
             <div class="card-body">
