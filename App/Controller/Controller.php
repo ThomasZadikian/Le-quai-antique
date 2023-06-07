@@ -19,6 +19,9 @@ class Controller
                         $homeController = new HomeController();
                         $homeController->home();
                         break;
+                    case 'test':
+                        $this->render('/pages/test');
+                        break;
                     default:
                         throw new Exception('La page demandé n\'existe pas');
                         // Création d'une nouvelle erreur
