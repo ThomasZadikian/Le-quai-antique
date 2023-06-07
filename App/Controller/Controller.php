@@ -12,7 +12,12 @@ class Controller
             if (isset($_GET['controller'])) {
                 switch ($_GET['controller']) {
                     case 'contact':
-                        // Charger page de contact
+                        $contactController = new ContactController();
+                        $contactController->contact();
+                        break;
+                    case 'home':
+                        $homeController = new HomeController();
+                        $homeController->home();
                         break;
                     default:
                         throw new Exception('La page demandé n\'existe pas');
@@ -38,7 +43,7 @@ class Controller
                 require_once $filePath;
             }
         } catch (Exception $e) {
-            $this->render('/errors/default', ['error' => $e->getMessage()]);
+            $this->render('/errors/defaultError', ['error' => $e->getMessage()]);
         }
     }
 }
