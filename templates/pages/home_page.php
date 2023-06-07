@@ -1,3 +1,4 @@
+<?php require_once _ROOTPATH_ . '\templates\header.php' ?>
 <div class="container">
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
@@ -102,3 +103,5 @@
         </div>
     </article>
 </div>
+
+<?php require_once _ROOTPATH_ . '\templates\footer.php' ?>

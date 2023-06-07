@@ -1,5 +1,9 @@
 <?php
+define('_ROOTPATH_', __DIR__);
 
-include_once "templates/header.php";
-include_once "templates/pages/home_page.php";
-include_once "templates/footer.php";
+spl_autoload_register();
+
+use App\Controller\Controller;
+
+$controller = new Controller();
+$controller->route();
