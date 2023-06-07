@@ -9,24 +9,22 @@ use \PDO;
 
 class MenuRepository
 {
-    public function findEntree(string $type)
+    public function findAllFoods(string $type)
     {
         $mysql = Mysql::getInstance();
         $pdo = $mysql->getPDO();
         $query = $pdo->prepare('SELECT * FROM foods WHERE type = :type');
         $query->bindValue(":type", $type, PDO::PARAM_STR);
         $query->execute();
-        $result = $query->fetch();
-        var_dump($result);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        $entree = new Entree();
-        $entree->setId($result['id']);
-        $entree->setTitle($result['name']);
-        $entree->setDescription($result['description']);
+        // $entree = new Entree();
+        // $entree->setId($result['id']);
+        // $entree->setTitle($result['name']);
+        // $entree->setDescription($result['description']);
 
-        // foreach ($result as $key => $value) {
-        //     $entree->{'set' . ucfirst($key)}($value);
-        //     echo $entree->getTitle();
-        // }
+        foreach ($result as $key => $value) {
+            echo $key . ' => ' . $value . '<br>';
+        }
     }
 }
