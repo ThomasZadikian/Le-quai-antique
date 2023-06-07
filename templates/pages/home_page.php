@@ -39,12 +39,38 @@
     </div>
 </div>
 
-<div class="container mt-5">
-    <article class="row row-cols-xxl-3">
-        <div class="card" style="width: 28rem; border : none;">
+<div class="container text-center">
+    <article class="row align-items-start">
+        <div class="card col-xxl-4" style="border : none;">
+            <div class="card-header">
+                Horaires
+            </div>
+            <div class="card-header">
+                <strong>Lundi - Vendredi</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Midi : xxh-xxh </li>
+                <li class="list-group-item">Soir : xxh-xxh </li>
+            </ul>
+            <div class="card-header">
+                <strong>Samedi</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Midi : xxh-xxh </li>
+                <li class="list-group-item">Soir : xxh-xxh </li>
+            </ul>
+            <div class="card-header">
+                <strong>Dimanche</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Midi : xxh-xxh </li>
+                <li class="list-group-item">Soir : Fermé </li>
+            </ul>
+        </div>
+        <div class="card col-xxl-4" style="border : none;">
             <img src="../../uploads/example-04.jpg" class="card-img-top rounded mt-2" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">Menu midi</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
             <ul class="list-group list-group-flush">
@@ -58,10 +84,10 @@
             </div>
         </div>
 
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+        <div class="card col-xxl-4" style="border : none;">
+            <img src="../../uploads/example-05.jpg" class="card-img-top rounded mt-2" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">Menu soir</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
             <ul class="list-group list-group-flush">
