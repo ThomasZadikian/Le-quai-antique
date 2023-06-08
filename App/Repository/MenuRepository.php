@@ -22,9 +22,11 @@ class MenuRepository
         // $entree->setId($result['id']);
         // $entree->setTitle($result['name']);
         // $entree->setDescription($result['description']);
-
         foreach ($result as $key => $value) {
-            echo $key . ' => ' . $value . '<br>';
+            if ($key === 'name') {
+                echo "<option value=" . $value . ">" . $value . "</option>";
+                break;
+            }
         }
     }
 }

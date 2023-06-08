@@ -1,4 +1,6 @@
-<?php require_once _ROOTPATH_ . '\templates\header.php' ?>
+<?php require_once _ROOTPATH_ . '\templates\header.php';
+var_dump($_POST);
+?>
 
 <div class="container">
     <div id="carouselExampleCaptions" class="carousel slide">

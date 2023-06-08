@@ -22,6 +22,9 @@ class Controller
                     case 'test':
                         $this->render('/pages/test');
                         break;
+                    case 'register':
+                        $this->render('/pages/register');
+                        break;
                     default:
                         throw new Exception('La page demandé n\'existe pas');
                         // Création d'une nouvelle erreur
