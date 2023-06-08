@@ -54,9 +54,9 @@ class Register
     }
 
 
-    private function validateData($lastName, $firstName, $email, $password, $confpass): bool
+    private function validateData($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen): bool
     {
-        if (empty($lastName) || empty($firstName) || empty($email) || empty($password)) {
+        if (empty($lastName) || empty($firstName) || empty($email) || empty($password) || empty($companions)) {
             $this->err_formIncomplete = "<p class='alert alert-danger mb-0 mt-1'>Merci de compléter tout les champs</p><br>";
             return false;
         } else {
@@ -75,33 +75,32 @@ class Register
         }
     }
 
-    public function registerUser($lastName, $firstName, $email, $password, $confpass)
+    public function registerUser($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen)
     {
-        $this->validateData($lastName, $firstName, $email, $password, $confpass);
-        if ($this->validateData($lastName, $firstName, $email, $password, $confpass)) {
+        $this->validateData($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen);
+        if ($this->validateData($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen)) {
             try {
                 $db = Mysql::getInstance();
                 $connect = $db->getPDO();
-                $req = $connect->prepare("SELECT email FROM users");
+                $req = $connect->prepare("SELECT * FROM users");
                 if ($req->execute()) {
-                    $result = $req->fetch(\PDO::FETCH_ASSOC);
-                    if ($result['email'] === $email) {
-                        throw new Exception();
+                    $result = $req->fetchAll(\PDO::FETCH_ASSOC);
+                    $req = $connect->prepare("
+                        INSERT INTO users(id, email, lastName, firstname, password, companions, phoneNumber, allergen) 
+                        VALUES 
+                        (UUID(),:email,:lastName, :firstName,:password,:companions,:phoneNumber, :allergen)
+                        ");
+                    $req->bindValue(':email', strtolower($email), \PDO::PARAM_STR);
+                    $req->bindValue(':lastName', strtolower($lastName), \PDO::PARAM_STR);
+                    $req->bindValue(':firstName', strtolower($firstName), \PDO::PARAM_STR);
+                    $req->bindValue(':password', password_hash((strval($password)), PASSWORD_BCRYPT));
+                    $req->bindValue(':companions', $companions, \PDO::PARAM_INT);
+                    $req->bindValue(':phoneNumber', $phoneNumber, \PDO::PARAM_STR);
+                    $req->bindValue(':allergen', $allergen, \PDO::PARAM_STR);
+                    if ($req->execute()) {
+                        $this->validateRegistration = "<p class='alert alert-success mb-0 mt-1'>Inscription validée, merci !</p><br>";
                     } else {
-                        $req = $connect->prepare("
-                    INSERT INTO users(id, email, lastName, firstname, password) 
-                    VALUES 
-                (UUID(),:email,:lastName, :firstName,:password)
-                ");
-                        $req->bindValue(':email', strtolower($email), \PDO::PARAM_STR);
-                        $req->bindValue(':lastName', strtolower($lastName), \PDO::PARAM_STR);
-                        $req->bindValue(':firstName', strtolower($firstName), \PDO::PARAM_STR);
-                        $req->bindValue(':password', password_hash((strval($password)), PASSWORD_BCRYPT));
-                        if ($req->execute()) {
-                            $this->validateRegistration = "<p class='alert alert-success mb-0 mt-1'>Inscription validée, merci !</p><br>";
-                        } else {
-                            echo 'Erreur lors de l\'insertion en base de donnée';
-                        }
+                        echo 'Erreur lors de l\'insertion en base de donnée';
                     }
                 }
             } catch (\PDOException $e) {
