@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Exception;
+use App\Entity\Session;
 
 class Controller
 {
@@ -29,10 +30,7 @@ class Controller
                         $this->render('/pages/connect_page');
                         break;
                     case 'disconnect':
-                        session_destroy();
-                        unset($_GET['controller']);
-                        header('Location: index.php');
-                        exit();
+                        Session::destroy();
                         break;
                     default:
                         throw new Exception('La page demandé n\'existe pas');

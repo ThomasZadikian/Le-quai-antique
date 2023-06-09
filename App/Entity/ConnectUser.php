@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
-use Exception;
 use App\Db\Mysql;
+use Exception;
 use PDO;
-use App\Controller;
-use App\Controller\Controller as ControllerController;
+use App\Entity\Session;
 
 class ConnectUser
 {
@@ -23,57 +22,71 @@ class ConnectUser
                     throw new Error(Error::INVALID_EMAIL);
                     return false;
                     exit();
+                } else {
+                    $query = $req->prepare('SELECT password FROM users WHERE email = :email');
+                    $query->bindValue(':email', $email, \PDO::PARAM_STR);
+                    $query->execute();
+                    $user = $query->fetch(PDO::FETCH_ASSOC);
+                    if (password_verify($password, $user['password'])) {
+                        return true;
+                    } else {
+                        throw new Error(Error::INVALID_PASSWORD);
+                        return false;
+                    }
                 }
             } else {
+                return false;
+                throw new Error(Error::ERROR_APPEND);
             }
         } catch (\Exception $e) {
             $errorMessage = $e->getMessage();
             echo $errorMessage;
+            return false;
         }
     }
 
     public function tryoToConnect(string $email, string $password)
     {
-        try {
-            $db = Mysql::getInstance();
-            $req = $db->getPDO();
-            $query = $req->prepare('SELECT * from users WHERE email = :email');
-            $query->bindValue(':email', $email, \PDO::PARAM_STR);
-            if ($query->execute()) {
-                $user = $query->fetch(PDO::FETCH_ASSOC);
-                if ($user === false) {
-                    throw new Error(Error::INVALID_EMAIL);
-                } else {
-                    if (password_verify($password, $user['password'])) {
-                        // $date_connexion = date('Y-m-d H:i:s');
-                        echo 'Connecté';
-                        var_dump($user);
-                        $_SESSION['id'] = $user['id'];
-                        $_SESSION['email'] = $user['email'];
-                        $_SESSION['lastName'] = $user['lastName'];
-                        $_SESSION['firstName'] = $user['firstName'];
-                        $_SESSION['phoneNumber'] = $user['phoneNumber'];
-                        $_SESSION['dateInscription'] = $user['dateInscription'];
-                        $_SESSION['role'] = $user['role'];
-                        $_SESSION['allergen'] = $user['allergen'];
-                        $_SESSION['companions'] = $user['companions'];
-                        if ($_SESSION['id']) {
-                            unset($_GET['controller']);
-                            header('Location: index.php');
-                            exit();
-                        } else {
-                            echo 'La connexion à échouée';
-                        }
+        if ($this->verifyConnectInformation($email, $password)) {
+            try {
+                $db = Mysql::getInstance();
+                $req = $db->getPDO();
+                $query = $req->prepare('SELECT * from users WHERE email = :email');
+                $query->bindValue(':email', $email, \PDO::PARAM_STR);
+                if ($query->execute()) {
+                    $user = $query->fetch(PDO::FETCH_ASSOC);
+                    if ($user === false) {
+                        throw new Error(Error::INVALID_EMAIL);
                     } else {
-                        echo 'Le mot de passe ne correspond pas';
+                        if (password_verify($password, $user['password'])) {
+                            // $date_connexion = date('Y-m-d H:i:s');
+                            Session::set('id', $user['id']);
+                            Session::set('email', $user['email']);
+                            Session::set('lastName', $user['lastName']);
+                            Session::set('firstName', $user['firstName']);
+                            Session::set('phoneNumber', $user['phoneNumber']);
+                            Session::set('dateInscription', $user['dateInscription']);
+                            Session::set('role', $user['role']);
+                            Session::set('allergen', $user['allergen']);
+                            Session::set('companions', $user['companions']);
+                            if (Session::get('id')) {
+                                unset($_GET['controller']);
+                                header('Location: index.php');
+                                exit();
+                            } else {
+                                throw new Error(Error::ERROR_APPEND);
+                            }
+                        } else {
+                            throw new Error(Error::INVALID_PASSWORD);
+                        }
                     }
+                } else {
+                    throw new Error(Error::INVALID_EMAIL);
                 }
-            } else {
-                throw new Error(Error::INVALID_EMAIL);
+            } catch (\Exception $e) {
+                $errorMessage = $e->getMessage();
+                echo $errorMessage;
             }
-        } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-            echo $errorMessage;
         }
     }
 }
