@@ -21,14 +21,26 @@
                     </svg>
                 </a>
             </div>
-
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="index.php?controller=home" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="index.php?controller=contact" class="nav-link px-2">Contact</a></li>
+            <?php
+            if (isset($_SESSION['id'])) {
+                echo "
+                <ul class='nav col-12 col-md-auto mb-2 justify-content-center mb-md-0'>
+                <li><a href='index.php?controller=home' class='nav-link px-2 link-secondary'>Home</a></li>
+                <li><a href='index.php?controller=contact' class='nav-link px-2'>Contact</a></li>
             </ul>
+            <div class='col-md-3 text-end'>
+                <a href='index.php?controller=register'><button type='button' class='btn btn-outline-primary me-2'>Gestion de compte</button></a>
+                <a href='index.php?controller=disconnect'><button type='button' class='btn btn-outline-primary me-2'>Se déconnecter</button></a>
+            </div>";
+            } else {
+                echo "
+                <ul class='nav col-12 col-md-auto mb-2 justify-content-center mb-md-0'>
+                <li><a href='index.php?controller=home' class='nav-link px-2 link-secondary'>Home</a></li>
+                <li><a href='index.php?controller=contact' class='nav-link px-2'>Contact</a></li>
+            </ul>
+            <div class='col-md-3 text-end'>
+                <a href='index.php?controller=connect'><button type='button' class='btn btn-outline-primary me-2'>Me connecter</button></a>
+            </div>";
+            } ?>
 
-            <div class="col-md-3 text-end">
-                <a href="index.php?controller=register"><button type="button" class="btn btn-outline-primary me-2">Register</button></a>
-                <button type="button" class="btn btn-primary">Login</button>
-            </div>
         </header>

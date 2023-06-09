@@ -20,6 +20,10 @@ if (!empty($_POST)) {
         $register->registerUser($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allAllergen);
     }
 }
+var_dump($_SESSION);
+if (isset($_SESSION['id'])) {
+    header('Location : /');
+}
 ?>
 
 <div class="container">
@@ -50,33 +54,33 @@ if (!empty($_POST)) {
     <p>Les champs contenant un * sont obligatoires</p>
     <form method="POST" action="">
         <div class="input-group mb-2 mt-2">
-            <span class="input-group-text">Nom et prénom</span>
-            <input type="text" class="form-control" value="" id="lastName" name="lastName" placeholder="Entrez votre nom">
+            <span class="input-group-text">Nom et prénom*</span>
+            <input type="text" class="form-control" value="" id="lastName" name="lastName" placeholder="Entrez votre nom" required pattern="[A-Za-zÀ-ÿ\-']{2,}">
 
-            <input type="text" class="form-control" value="" id="firstName" name="firstName" placeholder="Entrez votre prénom">
+            <input type="text" class="form-control" value="" id="firstName" name="firstName" placeholder="Entrez votre prénom" required pattern="[A-Za-zÀ-ÿ\-']{2,}">
         </div>
 
         <div class="form-group mb-2 mt-2">
             <label for="email">Adresse e-mail*</label>
-            <input type="email" class="form-control" value="" id="email" name="email" placeholder="Entrez votre adresse e-mail">
+            <input type="email" class="form-control" value="" id="email" name="email" placeholder="Entrez votre adresse e-mail" required pattern="^[A-Za-z]+@{1}[A-Za-z]{2,}$">
         </div>
 
         <div class="form-group mb-2 mt-2">
             <label for="password">Mot de passe*</label>
-            <input type="password" class="form-control" value="" id="password" name="password" placeholder="Entrez votre mot de passe">
+            <input type="password" class="form-control" value="" id="password" name="password" placeholder="Entrez votre mot de passe" required pattern="[A-Za-zÀ-ÿ\-']{8,}">
         </div>
 
         <div class="form-group mb-2 mt-2">
             <label for="confpass">Confirmez le mot de passe*</label>
-            <input type="password" class="form-control" id="confpass" name="confpass" placeholder="Entrez le même mot de passe qu'au dessus">
+            <input type="password" class="form-control" id="confpass" name="confpass" required placeholder="Entrez le même mot de passe qu'au dessus">
         </div>
 
         <div class="form-group mb-2 mt-2">
-            <label for="companions">Accompagnants</label>
-            <input type="text" class="form-control" id="companions" name="companions" placeholder="Notez ici le nombre d'accompagnants réguliers">
+            <label for="companions">Accompagnants (chiffres uniquement)</label>
+            <input type="text" class="form-control" id="companions" name="companions" placeholder="Notez ici le nombre d'accompagnants réguliers" pattern="[0-9]+>
         </div>
 
-        <div class="form-group mb-2 mt-2">
+        <div class=" form-group mb-2 mt-2">
             <label for="allergen">Notez ici vos allergies</label>
             <div class='row'>
                 <!-- foreach checkbox with class FindIntoDb -->

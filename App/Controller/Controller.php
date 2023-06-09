@@ -25,6 +25,15 @@ class Controller
                     case 'register':
                         $this->render('/pages/register');
                         break;
+                    case 'connect':
+                        $this->render('/pages/connect_page');
+                        break;
+                    case 'disconnect':
+                        session_destroy();
+                        unset($_GET['controller']);
+                        header('Location: index.php');
+                        exit();
+                        break;
                     default:
                         throw new Exception('La page demandé n\'existe pas');
                         // Création d'une nouvelle erreur
