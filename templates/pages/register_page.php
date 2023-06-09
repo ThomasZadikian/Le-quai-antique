@@ -15,12 +15,11 @@ if (!empty($_POST)) {
         $confpass = trim($confpass);
         $companions = (int)$companions;
         $phoneNumber = trim($phoneNumber);
-        $allAllergen = implode(' , ', $allergens);
+        $allAllergen = isset($allergens) ? implode(' , ', $allergens) : '';
         $register = new Register;
         $register->registerUser($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allAllergen);
     }
 }
-var_dump($_SESSION);
 if (isset($_SESSION['id'])) {
     header('Location : /');
 }
@@ -30,21 +29,6 @@ if (isset($_SESSION['id'])) {
 
     <?php
     if (isset($_POST['register'])) {
-        if (property_exists('App\Entity\Register', 'err_passwordToShort')) {
-            echo $register->getErrPasswordToShort();
-        }
-        if (property_exists('App\Entity\Register', 'err_formIncomplete')) {
-            echo $register->getErrFormIncomplete();
-        }
-        if (property_exists('App\Entity\Register', 'err_emailAlreadyUse')) {
-            echo $register->getErrEmailAlreadyUse();
-        }
-        if (property_exists('App\Entity\Register', 'err_confPassword')) {
-            echo $register->getErrConfPassword();
-        }
-        if (property_exists('App\Entity\Register', 'err_dbConnect')) {
-            echo $register->getErrDbConnect();
-        }
         if (property_exists('App\Entity\Register', 'validateRegistration')) {
             echo $register->getvalidateRegistration();
         }
@@ -62,12 +46,12 @@ if (isset($_SESSION['id'])) {
 
         <div class="form-group mb-2 mt-2">
             <label for="email">Adresse e-mail*</label>
-            <input type="email" class="form-control" value="" id="email" name="email" placeholder="Entrez votre adresse e-mail" required pattern="^[A-Za-z]+@{1}[A-Za-z]{2,}$">
+            <input type="email" class="form-control" value="" id="email" name="email" placeholder="Entrez votre adresse e-mail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
         </div>
 
         <div class="form-group mb-2 mt-2">
             <label for="password">Mot de passe*</label>
-            <input type="password" class="form-control" value="" id="password" name="password" placeholder="Entrez votre mot de passe" required pattern="[A-Za-zÀ-ÿ\-']{8,}">
+            <input type="password" class="form-control" value="" id="password" name="password" placeholder="Entrez votre mot de passe" required pattern="[A-Za-zÀ-ÿ\-'0-9]{8,}">
         </div>
 
         <div class="form-group mb-2 mt-2">
@@ -77,7 +61,7 @@ if (isset($_SESSION['id'])) {
 
         <div class="form-group mb-2 mt-2">
             <label for="companions">Accompagnants (chiffres uniquement)</label>
-            <input type="text" class="form-control" id="companions" name="companions" placeholder="Notez ici le nombre d'accompagnants réguliers" pattern="[0-9]+>
+            <input type="text" class="form-control" id="companions" name="companions" placeholder="Notez ici le nombre d'accompagnants réguliers" pattern="[0-9]+">
         </div>
 
         <div class=" form-group mb-2 mt-2">

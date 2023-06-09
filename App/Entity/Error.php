@@ -8,7 +8,11 @@ class Error extends Exception
 {
     public const ERROR_APPEND = "<p class='alert alert-danger'>Une erreur est survenue, merci de contacter l'administrateur du site avec la date et l'heure de l'erreur</p>";
     public const INVALID_EMAIL = "<p class='alert alert-danger'>Votre adresse mail est incorrecte</p>";
+    public const EMAIL_ALREADY_USE = "<p class='alert alert-danger'>Cette adresse mail est déjà utilisée</p>";
     public const INVALID_PASSWORD = "<p class='alert alert-danger'>Le mot de passe ne correspond pas à l'adresse mail</p>";
+    public const PASSWORD_TO_SHORT = "<p class='alert alert-danger mb-0 mt-1'>le mot de passe est trop court</p><br>";
+    public const PASSWORD_NOT_MATCH = "<p class='alert alert-danger mb-0 mt-1'>Les mots de passe ne correspondent pas</p><br>";
+    public const FORM_NOT_COMPLETE = "<p class='alert alert-danger mb-0 mt-1'>Formulaire invalide, merci de compléter tout els champs et de respecter les contraintes</p><br>";
 
     public function __construct(string $message)
     {

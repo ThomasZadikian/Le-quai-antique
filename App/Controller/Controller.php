@@ -20,11 +20,8 @@ class Controller
                         $homeController = new HomeController();
                         $homeController->home();
                         break;
-                    case 'test':
-                        $this->render('/pages/test');
-                        break;
                     case 'register':
-                        $this->render('/pages/register');
+                        $this->render('/pages/register_page');
                         break;
                     case 'connect':
                         $this->render('/pages/connect_page');
