@@ -13,8 +13,7 @@ class Controller
             if (isset($_GET['controller'])) {
                 switch ($_GET['controller']) {
                     case 'contact':
-                        $contactController = new ContactController();
-                        $contactController->contact();
+                        $this->render('pages/contact_page');
                         break;
                     case 'home':
                         $homeController = new HomeController();
@@ -25,6 +24,23 @@ class Controller
                         break;
                     case 'connect':
                         $this->render('/pages/connect_page');
+                        break;
+                    case 'pageManagement':
+                        if (isset($_SESSION['role'])) {
+                            switch ($_SESSION['role']) {
+                                case 'admin':
+                                    $pageManagement = new PageManagementController;
+                                    $pageManagement->route();
+                                    break;
+                                case 'user':
+                                    $pageManagement = new PageManagementController;
+                                    $pageManagement->route();
+                                    break;
+                                default:
+                                    $_GET['action'] = null;
+                                    break;
+                            }
+                        }
                         break;
                     case 'disconnect':
                         Session::destroy();

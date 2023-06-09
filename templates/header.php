@@ -29,7 +29,7 @@
                 <li><a href='index.php?controller=contact' class='nav-link px-2'>Contact</a></li>
             </ul>
             <div class='col-md-3 text-end'>
-                <a href='index.php?controller=register'><button type='button' class='btn btn-outline-primary me-2'>Gestion de compte</button></a>
+                <a href='index.php?controller=pageManagement&action=" . $_SESSION['role'] . "'><button type='button' class='btn btn-outline-primary me-2'>Gestion de compte</button></a>
                 <a href='index.php?controller=disconnect'><button type='button' class='btn btn-outline-primary me-2'>Se déconnecter</button></a>
             </div>";
             } else {
