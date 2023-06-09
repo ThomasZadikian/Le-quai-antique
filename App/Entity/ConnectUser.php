@@ -67,7 +67,7 @@ class ConnectUser
                             Session::set('phoneNumber', $user['phoneNumber']);
                             Session::set('dateInscription', $user['dateInscription']);
                             Session::set('role', $user['role']);
-                            Session::set('allergen', $user['allergen']);
+                            Session::set('allergens', $user['allergen']);
                             Session::set('companions', $user['companions']);
                             if (Session::get('id')) {
                                 unset($_GET['controller']);

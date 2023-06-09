@@ -1,3 +1,4 @@
 #ignor .css files
 *.css
 *.map
+*.txt
