@@ -27,7 +27,7 @@ class CreatedFood
                 $req->bindValue(':description', $description, PDO::PARAM_STR);
                 $req->bindValue(':type', $type, PDO::PARAM_STR);
                 if ($req->execute()) {
-                    echo 'Plat ajouté en base de donnée';
+                    echo "<p class='alert alert-success'>Plat ajouté en base de donnée</p>";
                     unset($_POST);
                 } else {
                     throw new Error(Error::ERROR_APPEND);
