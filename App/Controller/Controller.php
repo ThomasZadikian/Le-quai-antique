@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use Exception;
 use App\Entity\Session;
+use Exception;
+use App\Entity\Error;
 
 class Controller
 {
@@ -29,7 +30,7 @@ class Controller
                         if (isset($_SESSION['role'])) {
                             switch ($_SESSION['role']) {
                                 case 'admin':
-                                    $pageManagement = new PageManagementController;
+                                    $pageManagement = new AdminController;
                                     $pageManagement->route();
                                     break;
                                 case 'user':
@@ -46,14 +47,14 @@ class Controller
                         Session::destroy();
                         break;
                     default:
-                        throw new Exception('La page demandé n\'existe pas');
-                        // Création d'une nouvelle erreur
+                        throw new Error(Error::PAGES_NOT_FOUND);
                 }
             } else {
                 $homeController = new HomeController();
                 $homeController->home();
             }
         } catch (Exception $e) {
+            header("Refresh: 5; URL=index.php");
             echo $e->getMessage();
         }
     }
@@ -63,12 +64,13 @@ class Controller
         $filePath = _ROOTPATH_ . '/templates/' . $path . '.php';
         try {
             if (!file_exists($filePath)) {
-                throw new Exception('Fichier non trouvé : ' . $filePath);
+                throw new Error(Error::PAGES_NOT_FOUND);
             } else {
                 extract($params);
                 require_once $filePath;
             }
         } catch (Exception $e) {
+            header("Refresh: 5; URL=index.php");
             $this->render('/errors/defaultError', ['error' => $e->getMessage()]);
         }
     }

@@ -10,7 +10,7 @@ class PageManagementController extends Controller
             switch ($_GET['action']) {
                 case 'admin':
                     if (isset($_SESSION['id']) && $_SESSION['role'] === 'admin') {
-                        $this->render('pages/admin_pageManagement');
+                        $this->render('pages/admin/admin_pageManagementFood');
                     } else {
                         header("Refresh: 5; URL=index.php");
                         echo 'Vous n\'êtes pas autorisé à venir sur cette page, vous allez être redirigé vers la page d\'accueil';

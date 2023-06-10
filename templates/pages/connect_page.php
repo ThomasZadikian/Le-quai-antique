@@ -25,8 +25,8 @@ if (isset($_POST)) {
             <label for="password">Mot de passe :</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
         </div>
-        <button type="submit" class="btn btn-primary" name="connect">Se connecter</button>
+        <button type="submit" class="btn btn-primary p-2 mt-1" name="connect">Se connecter</button>
     </form>
-    <a href='index.php?controller=register'><button type='button' class='btn btn-outline-primary me-2'>Pas encore de compte ? </button></a>
+    <a href='index.php?controller=register'><button type='button' class='btn btn-primary me-2 mt-5'>Pas encore de compte ? </button></a>
 </div>
 <?php require_once _ROOTPATH_ . '/templates/footer.php' ?>

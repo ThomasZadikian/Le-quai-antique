@@ -69,7 +69,7 @@ if (isset($_SESSION['id'])) {
             <div class='row'>
                 <!-- foreach checkbox with class FindIntoDb -->
                 <?php
-                foreach ($allergen->getResult() as $id => $name) {
+                foreach ($allergen->getAllergen() as $id => $name) {
                     echo
                     "<div class='mt-1 mb-1 col-3'>
                     <input class='form-check-input' type='checkbox' id=checkbox_$id name='allergens[]' value='$name' >
