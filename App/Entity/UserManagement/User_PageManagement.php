@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\UserManagement;
 
-use App\Entity\User;
 
 class User_PageManagement extends User
 {
@@ -11,9 +10,8 @@ class User_PageManagement extends User
 
     public function getUserInformation(): array
     {
-        $user = new User;
-        $user->defineUser();
-        return $this->userInformation = $user->getUserInformation();
+        parent::setUserInformations();
+        return $this->userInformation = parent::getUserInformations();
     }
 
     public function changePassword($oldPassword, $newPassword)

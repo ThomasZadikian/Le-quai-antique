@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\UserManagement;
 
 use App\Db\Mysql;
 use Exception;
 
-class Register
+class Register extends User
 {
-
-    //Mettre les bonnes valeurs de la DB
-
     protected string $validateRegistration = '';
 
     public function getvalidateRegistration(): string
@@ -17,37 +14,10 @@ class Register
         return $this->validateRegistration;
     }
 
-
-    private function validateData($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen): bool
-    {
-        try {
-
-            if (empty($lastName) || empty($firstName) || empty($email) || empty($password) || empty($companions)) {
-                throw new Error(Error::FORM_NOT_COMPLETE);
-                return false;
-            } else {
-                // Ajouter vérification email (taille)
-                if (strtolower($password) !== strtolower($confpass)) {
-                    throw new Error(Error::PASSWORD_NOT_MATCH);
-                    return false;
-                } else {
-                    if (strlen($password) < 8) {
-                        throw new Error(Error::PASSWORD_TO_SHORT);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            }
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
     public function registerUser($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen)
     {
-        $this->validateData($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen);
-        if ($this->validateData($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen)) {
+        parent::verifyRegisterInformations($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen);
+        if (parent::verifyRegisterInformations($lastName, $firstName, $email, $password, $confpass, $companions, $phoneNumber, $allergen)) {
             try {
                 $db = Mysql::getInstance();
                 $connect = $db->getPDO();
