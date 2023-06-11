@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Db\Mysql;
 use Exception;
 use PDO;
+use App\Entity\User;
 use App\Entity\Session;
 
 class ConnectUser
@@ -59,17 +60,12 @@ class ConnectUser
                         throw new Error(Error::INVALID_EMAIL);
                     } else {
                         if (password_verify($password, $user['password'])) {
-                            // $date_connexion = date('Y-m-d H:i:s');
-                            Session::set('id', $user['id']);
-                            Session::set('email', $user['email']);
-                            Session::set('lastName', $user['lastName']);
-                            Session::set('firstName', $user['firstName']);
-                            Session::set('phoneNumber', $user['phoneNumber']);
-                            Session::set('dateInscription', $user['dateInscription']);
-                            Session::set('role', $user['role']);
-                            Session::set('allergens', $user['allergen']);
-                            Session::set('companions', $user['companions']);
+                            foreach ($user as $id => $value) {
+                                Session::set("$id", $value);
+                            }
                             if (Session::get('id')) {
+                                $user = new User;
+                                $user->defineUser();
                                 unset($_GET['controller']);
                                 header('Location: index.php');
                                 exit();
