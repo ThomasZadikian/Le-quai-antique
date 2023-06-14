@@ -61,7 +61,7 @@ class FoodController
         $searchInDb = new FindIntoDb;
         foreach ($searchInDb->getAllergen() as $id => $name) {
             echo
-            "<div class='mt-1 mb-1 col-3'>
+            "<div class='mt-1 mb-1 col-6 col-sm-4 col-md-3'>
             <input class='form-check-input' type='checkbox' id=checkbox_$id name='allergens[]' value='$name' >
             <label for='checkbox_$id'>" . ucfirst($name) . "</label></div>";
         }
@@ -71,8 +71,8 @@ class FoodController
     {
         $searchInDb = new FindIntoDb;
         foreach ($searchInDb->getFoodType() as $type) {
-            echo "<div class='col-4'>";
-            echo "<h2>Les " . ucfirst($type) . " :</h2>";
+            echo "<div class='col-12 col-md-4'>";
+            echo "<h4>Les " . ucfirst($type) . " :</h3>";
             foreach ($searchInDb->getFood($type) as $id => $name) {
                 echo "<div class='mt-1 mb-1'>";
                 echo "<input class='form-check-input me-2' type='radio' id='radio_$id' name='menu[$type]' value='$name' required>";
@@ -87,7 +87,9 @@ class FoodController
     {
         $searchIntoDb = new FindIntoDb;
         $allMenu = $searchIntoDb->getAllMenu();
-        echo '<select name="homeMenu">';
+        echo '
+        <div class="form-groupe">
+        <select name="homeMenu" class="form-control">';
         foreach ($allMenu as $menu) {
             $entree = $menu['entree_name'];
             $plat = $menu['plat_name'];
@@ -95,7 +97,7 @@ class FoodController
             $price = $menu['total_price'];
             echo '<option value="' . $menu['entree_id'] . ',' . $menu['plat_id'] . ',' . $menu['dessert_id'] . ',' . $menu['total_price'] . '">' . $entree . ', ' . $plat . ', ' . $dessert . ', ' . $price . '</option>';
         }
-        echo '</select>';
+        echo '</select></div>';
     }
 
     public function generateHomeMenu($id)

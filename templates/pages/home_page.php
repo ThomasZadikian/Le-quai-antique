@@ -77,11 +77,11 @@ $menuFood = new FoodController; ?>
         </div>
 
         <!-- Card for menu midi -->
-        <div class="card col-xxl-4" style="border : none;">
-            <img src="../../uploads/example-04.jpg" class="card-img-top rounded mt-2" alt="...">
+        <div class="card col-xxl-4" style="border: none;">
+            <img src="../../uploads/example-04.jpg" class="card-img-top rounded mt-2 img-fluid" alt="..." style="object-fit: cover; height: 300px;">
             <div class="card-body">
                 <h5 class="card-title">Menu midi</h5>
-                <p class="card-text">Venez déguister notre magnifique menu de ce midi !</p>
+                <p class="card-text">Venez déguster notre magnifique menu de ce midi !</p>
             </div>
             <?= $menuFood->generateHomeMenu(1) ?>
             <div class="card-body">
@@ -91,11 +91,11 @@ $menuFood = new FoodController; ?>
         </div>
 
         <!-- Card for menu soir -->
-        <div class="card col-xxl-4" style="border : none;">
-            <img src="../../uploads/example-05.jpg" class="card-img-top rounded mt-2" alt="...">
+        <div class="card col-xxl-4" style="border: none;">
+            <img src="../../uploads/example-05.jpg" class="card-img-top rounded mt-2 img-fluid" alt="..." style="object-fit: cover; height: 300px;">
             <div class="card-body">
                 <h5 class="card-title">Menu soir</h5>
-                <p class="card-text">Votre diner de ce soir ? Il est indiqué juste en dessous</p>
+                <p class="card-text">Votre dîner de ce soir ? Il est indiqué juste en dessous.</p>
             </div>
             <?= $menuFood->generateHomeMenu(2) ?>
             <div class="card-body">
@@ -103,6 +103,7 @@ $menuFood = new FoodController; ?>
                 <a href="#" class="card-link">Another link</a>
             </div>
         </div>
+
     </article>
 </div>
 
