@@ -1,4 +1,8 @@
-<?php require_once _ROOTPATH_ . '\templates\header.php'; ?>
+<?php require_once _ROOTPATH_ . '\templates\header.php';
+
+use App\Controller\FoodController;
+
+$menuFood = new FoodController; ?>
 
 <div class="container">
     <div id="carouselExampleCaptions" class="carousel slide">
@@ -77,13 +81,9 @@
             <img src="../../uploads/example-04.jpg" class="card-img-top rounded mt-2" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Menu midi</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">Venez déguister notre magnifique menu de ce midi !</p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><?= $entree ?></li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-            </ul>
+            <?= $menuFood->generateHomeMenu(1) ?>
             <div class="card-body">
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>
@@ -95,13 +95,9 @@
             <img src="../../uploads/example-05.jpg" class="card-img-top rounded mt-2" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Menu soir</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">Votre diner de ce soir ? Il est indiqué juste en dessous</p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-            </ul>
+            <?= $menuFood->generateHomeMenu(2) ?>
             <div class="card-body">
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>

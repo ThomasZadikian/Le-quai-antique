@@ -23,4 +23,8 @@ class HomeController extends Controller
     {
         $this->render('pages/home_page');
     }
+
+    public function menuHome()
+    {
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Entity\UserManagement;
 
 use PDO;
 use App\Db\Mysql;
-use Exception;
+use App\Entity\Error;
 use App\Entity\Session;
 
 class User

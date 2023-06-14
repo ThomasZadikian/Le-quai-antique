@@ -1,7 +1,7 @@
 <?php
 require_once _ROOTPATH_ . '/templates/header.php';
 //LOGIC FOR CONNEXION
-use App\Entity\ConnectUser;
+use App\Entity\UserManagement\ConnectUser;
 
 if (isset($_POST)) {
     extract($_POST);

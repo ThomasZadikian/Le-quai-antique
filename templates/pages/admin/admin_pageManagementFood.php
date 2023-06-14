@@ -2,20 +2,21 @@
 require_once _ROOTPATH_ . '/templates/header.php';
 require_once _ROOTPATH_ . '/templates/adminPanel.php';
 
-use App\Db\FindIntoDb;
-use App\Entity\CreatedFood;
+use App\Controller\FoodController;
 
-$searchInDb = new FindIntoDb;
+$foodManagement = new FoodController;
 
 if (!empty($_POST)) {
-    extract($_POST);
     if (isset($_POST['foodSubmit'])) {
-        $name = trim($foodName);
-        $type = trim($typePlat);
-        $allAllergen = isset($allergens) ? implode(' , ', $allergens) : '';
-        $description = trim($foodDescription);
-        $createdFood = new CreatedFood;
-        $createdFood->createdFood($name, $type, $allAllergen, $foodDescription);
+        $foodManagement->addFoodfromSelection($_POST);
+    } else if (isset($_POST['menuSubmit'])) {
+        $foodManagement->addMenuFromSelection($_POST['menu']);
+    } else if (isset($_POST['midi'])) {
+        var_dump($_POST);
+        $foodManagement->addHomeMenuFromSelection('launch', $_POST['homeMenu']);
+    } else if (isset($_POST['dinner'])) {
+        var_dump($_POST);
+        $foodManagement->addHomeMenuFromSelection('dinner', $_POST['homeMenu']);
     }
 }
 
@@ -41,13 +42,7 @@ if (!empty($_POST)) {
                 <label for="allergenes" class="form-label">Allergènes</label>
                 <!-- foreach checkbox with class FindIntoDb -->
                 <div class="row">
-                    <?php
-                    foreach ($searchInDb->getAllergen() as $id => $name) {
-                        echo
-                        "<div class='mt-1 mb-1 col-3'>
-                <input class='form-check-input' type='checkbox' id=checkbox_$id name='allergens[]' value='$name' >
-                <label for='checkbox_$id'>" . ucfirst($name) . "</label></div>";
-                    }
+                    <?= $foodManagement->generateAllergensCheckbox();
                     ?>
                 </div>
             </div>
@@ -55,24 +50,38 @@ if (!empty($_POST)) {
                 <label for="foodDescription" class="form-label">Description du plat</label>
                 <input type="text" class="form-control" name='foodDescription' id="foodDescription" required>
             </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Prix de ce plat : </label>
+                <input type="text" class="form-control" name='price' id="price" required pattern="[0-9]+([,.][0-9]+)?">
+            </div>
             <button type="submit" name='foodSubmit' class="btn btn-primary">Créer</button>
         </form>
-        <div class="row">
-            <h1 class='mt-3'>Créer un nouveau menu : </h1>
-            <div class='row'>
-                <?php
-                foreach ($searchInDb->getFoodType() as $type) {
-                    echo "<div class='col-4'>";
-                    echo "<h2>Les " . ucfirst($type) . " :</h2>";
-                    foreach ($searchInDb->getFood($type) as $id => $name) {
-                        echo "<div class='mt-1 mb-1'>";
-                        echo "<input class='form-check-input' type='checkbox' id='checkbox_$id' name='allergens[]' value='$name'>";
-                        echo "<label for='checkbox_$id'>" . ucfirst($name) . "</label>";
-                        echo "</div>";
-                    }
+        <form method="post">
+            <div class="row">
+                <h1 class='mt-3'>Créer un nouveau menu : </h1>
+                <div class='row'>
+                    <?= $foodManagement->generateFoodsforMenu() ?>
+                </div>
+                <button type="submit" name='menuSubmit' class="btn btn-primary">Créer</button>
+        </form>
 
-                    echo "</div>";
-                }
-                ?>
+        <form method="post">
+            <div class="row">
+                <div class="col-6">
+                    <h1 class='mt-3'>Sélectionnez un menu pour le midi : </h1>
+                    <div class='row'>
+                        <?= $foodManagement->generateMenu() ?>
+                    </div>
+                    <button type="submit" name='midi' class="btn btn-primary">Créer</button>
+                </div>
+        </form>
+        <form method="post">
+            <div class="col-6">
+                <h1 class='mt-3'>Sélectionnez un menu pour le soir : </h1>
+                <div class='row'>
+                    <?= $foodManagement->generateMenu() ?>
+                </div>
+                <button type="submit" name='dinner' class="btn btn-primary">Créer</button>
             </div>
-            <?php require_once _ROOTPATH_ . '/templates/footer.php' ?>
+        </form>
+        <?php require_once _ROOTPATH_ . '/templates/footer.php' ?>

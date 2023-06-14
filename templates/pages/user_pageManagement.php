@@ -1,7 +1,7 @@
 <?php
 require_once _ROOTPATH_ . '/templates/header.php';
 
-use App\Entity\User_PageManagement;
+use App\Entity\UserManagement\User_PageManagement;
 
 $userPageManagement = new User_PageManagement;
 $userInformation = $userPageManagement->getUserInformation();

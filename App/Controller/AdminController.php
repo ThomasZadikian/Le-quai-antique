@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use Exception;
+use Error;
+use App\Entity\FoodManagement;
 
 class AdminController extends Controller
 {
@@ -28,6 +29,38 @@ class AdminController extends Controller
                 }
             }
         } catch (\Exception $e) {
+        }
+    }
+
+    public function addFoodfromSelection($postData)
+    {
+        $foodManagement = new FoodManagement;
+        try {
+            $name = trim($postData['foodName']);
+            $type = trim($postData['typePlat']);
+            $allergen = isset($postData['allergens']) ? implode(' , ', $postData['allergens']) : '';
+            $description = trim($postData['foodDescription']);
+            $price = floatval($postData['price']);
+
+            $foodManagement->createFood($name, $type, $allergen, $description, $price);
+
+            echo "<p class='alert alert-success'>Plat ajouté en base de données</p>";
+            unset($_POST);
+        } catch (Error $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function addMenuFromSelection($postData)
+    {
+        $foodManagement = new FoodManagement;
+        try {
+            $entree = $postData["entree"];
+            $plat = $postData["plat"];
+            $dessert = $postData["dessert"];
+            $foodManagement->createMenu($entree, $plat, $dessert);
+        } catch (Error $e) {
+            echo $e->getMessage();
         }
     }
 }

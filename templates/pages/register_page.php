@@ -1,7 +1,7 @@
 <?php
 require_once _ROOTPATH_ . '/templates/header.php';
 
-use App\Entity\Register;
+use App\Entity\UserManagement\Register;
 use App\Db\FindIntoDb;
 
 $allergen = new FindIntoDb;

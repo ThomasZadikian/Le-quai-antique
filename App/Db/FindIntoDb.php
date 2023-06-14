@@ -3,7 +3,7 @@
 namespace App\Db;
 
 use App\Db\Mysql;
-use Exception;
+use App\Entity\Error;
 
 class FindIntoDb
 {
@@ -12,6 +12,8 @@ class FindIntoDb
     protected $food = [];
     protected $foodType = [];
     protected $users = [];
+    protected $allMenu = [];
+    protected $homeMenu = [];
 
     public function getAllergen()
     {
@@ -37,7 +39,19 @@ class FindIntoDb
         return $this->users;
     }
 
-    public function findAllAllergensIntoDb()
+    public function getAllMenu()
+    {
+        $this->allMenu = $this->findAllMenu();
+        return $this->allMenu;
+    }
+
+    public function getHomeMenu($id)
+    {
+        $this->homeMenu = $this->findHomeMenu($id);
+        return (!empty($this->homeMenu)) ? $this->homeMenu[0] : null;
+    }
+
+    private function findAllAllergensIntoDb()
     {
         try {
             $db = Mysql::getInstance();
@@ -53,7 +67,7 @@ class FindIntoDb
         }
     }
 
-    public function findAllFood(string $type)
+    private function findAllFood(string $type)
     {
         try {
             $db = Mysql::getInstance();
@@ -71,7 +85,7 @@ class FindIntoDb
         }
     }
 
-    public function foodType()
+    private function foodType()
     {
         try {
             $db = Mysql::getInstance();
@@ -90,8 +104,7 @@ class FindIntoDb
         }
     }
 
-
-    public function findUsers()
+    private function findUsers()
     {
         try {
             $db = Mysql::getInstance();
@@ -102,6 +115,107 @@ class FindIntoDb
                     $this->users[$row['firstName']] = ucfirst($row['lastName']) . ' ' . ucfirst($row['firstName']);
                 }
             }
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    private function findAllMenu()
+    {
+        try {
+            $db = Mysql::getInstance();
+            $connect = $db->getPDO();
+            $req = $connect->prepare('
+            SELECT
+            m.id AS menu_id,
+            m.entree_id,
+            m.plat_id,
+            m.dessert_id,
+            m.total_price,
+            f_entree.id AS entree_id,
+            f_entree.name AS entree_name,
+            f_plat.id AS plat_id,
+            f_plat.name AS plat_name,
+            f_dessert.id AS dessert_id,
+            f_dessert.name AS dessert_name
+            FROM
+            menu_admin AS m
+            INNER JOIN foods AS f_entree ON m.entree_id = f_entree.id
+            INNER JOIN foods AS f_plat ON m.plat_id = f_plat.id
+            INNER JOIN foods AS f_dessert ON m.dessert_id = f_dessert.id;
+            ');
+            $allMenu = [];
+            if ($req->execute()) {
+                while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
+                    $allMenu[] = [
+                        'entree_id' => $row['entree_id'],
+                        'entree_name' => $row['entree_name'],
+                        'plat_id' => $row['plat_id'],
+                        'plat_name' => $row['plat_name'],
+                        'dessert_id' => $row['dessert_id'],
+                        'dessert_name' => $row['dessert_name'],
+                        'total_price' => $row['total_price'],
+                    ];
+                }
+            }
+            return $allMenu;
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    private function findHomeMenu($id)
+    {
+        try {
+            $db = Mysql::getInstance();
+            $connect = $db->getPDO();
+            $req = $connect->prepare('
+            SELECT
+            m.id AS menu_id,
+            m.menu_name AS menu_name,
+            m.entree_id,
+            m.plat_id,
+            m.dessert_id,
+            m.total_price,
+            f_entree.id AS entree_id,
+            f_entree.name AS entree_name,
+            f_entree.allergen AS entree_allergen,
+            f_plat.id AS plat_id,
+            f_plat.name AS plat_name,
+            f_plat.allergen AS plat_allergen,
+            f_dessert.id AS dessert_id,
+            f_dessert.name AS dessert_name,
+            f_dessert.allergen AS dessert_allergen
+        FROM
+            home_menu AS m
+            INNER JOIN foods AS f_entree ON m.entree_id = f_entree.id
+            INNER JOIN foods AS f_plat ON m.plat_id = f_plat.id
+            INNER JOIN foods AS f_dessert ON m.dessert_id = f_dessert.id
+        WHERE
+            m.id = :id;
+            ');
+            $req->bindValue(':id', $id, \PDO::PARAM_INT);
+            if ($req->execute()) {
+                while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
+                    $homeMenu[] = [
+                        'menu_id' => $row['menu_id'],
+                        'entree_id' => $row['entree_id'],
+                        'entree_name' => $row['entree_name'],
+                        'entree_allergen' => $row['entree_allergen'],
+                        'plat_id' => $row['plat_id'],
+                        'plat_name' => $row['plat_name'],
+                        'plat_allergen' => $row['plat_allergen'],
+                        'dessert_id' => $row['dessert_id'],
+                        'dessert_name' => $row['dessert_name'],
+                        'dessert_allergen' => $row['dessert_allergen'],
+                        'total_price' => $row['total_price'],
+
+                    ];
+                }
+            } else {
+                throw new Error(Error::MENU_NOT_CREATED);
+            }
+            return $homeMenu;
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }

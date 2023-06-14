@@ -15,6 +15,7 @@ class Error extends Exception
     public const FORM_NOT_COMPLETE = "<p class='alert alert-danger mb-0 mt-1'>Formulaire invalide, merci de compléter tout els champs et de respecter les contraintes</p><br>";
     public const FOOD_ALREADY_IN_DB = "<p class='alert alert-danger mb-0 mt-1'>Ce plat existe déjà, merci de regarder la liste des plats et de la supprimer si besoin</p><br>";
     public const PAGES_NOT_FOUND = "<p class='alert alert-danger mb-0 mt-1'>La page correspondante, n'existe pas. Vous allez être redirigé dans les 5 prochaines secondes</p><br>";
+    public const MENU_NOT_CREATED = "<p class='alert alert-danger mb-0 mt-1'>Une erreur est survenue lors de la création du menu</p><br>";
 
     public function __construct(string $message)
     {
