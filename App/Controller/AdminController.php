@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Error;
+use App\Entity\Error;
 use App\Entity\CreateFoodManagement;
 
 class AdminController extends Controller
@@ -66,45 +66,60 @@ class AdminController extends Controller
 
     public function addImages()
     {
-        $nomFichier = $_FILES['file']['name'];
-        $cheminFichier = _ROOTPATH_ . '\uploads/' . $nomFichier;
-        if (move_uploaded_file($_FILES['file']['tmp_name'], $cheminFichier)) {
-            // Le fichier a été téléchargé avec succès
-            // Vous pouvez effectuer d'autres opérations ici, comme enregistrer le chemin du fichier dans la base de données
-            echo 'Fichier téléchargé avec succès !';
-        } else {
-            // Une erreur s'est produite lors du téléchargement du fichier
-            echo 'Une erreur s\'est produite lors du téléchargement du fichier.';
+        try {
+            $nomFichier = $_FILES['file']['name'];
+            $cheminFichier = _ROOTPATH_ . '\uploads/' . $nomFichier;
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $cheminFichier)) {
+                echo '<p class="alert alert-success">Le fichier a été enregistré avec succès ! </p>';
+            } else {
+                throw new Error(Error::ERROR_APPEND);
+            }
+        } catch (Error $e) {
+            echo $e->getMessage();
         }
     }
 
     public function deleteImage()
     {
-        $uploadsDirectory = _ROOTPATH_ . '\uploads/';
-        $imageName = $_POST['imageName'];
-        $imagePath = $uploadsDirectory . $imageName;
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-            echo 'L\'image a été supprimée avec succès.';
-        } else {
-            echo 'Le fichier n\'existe pas.';
+        try {
+            $uploadsDirectory = _ROOTPATH_ . '\uploads/';
+            $imageName = $_POST['imageName'];
+            $imagePath = $uploadsDirectory . $imageName[0];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+                echo '<p class="alert alert-success">Le fichier a été supprimé avec succès ! </p>';
+            } else {
+                throw new Error(Error::ERROR_APPEND);
+            }
+        } catch (Error $e) {
+            echo $e->getMessage();
         }
     }
 
     public function changeImages()
     {
-        $config = require_once _ROOTPATH_ . '/config.php';
-        $imagesArray = $config['carrouselImages'];
-        $newImagesArray = [];
-        $uploadsDirectory = $config['uploadsDirectory'];
-        $selectedImages = $_POST['imageName'];
-        foreach ($selectedImages as $index => $path) {
-            $imageName = basename($path);
-            $newImagesArray[] = $imageName;
+        try {
+
+            $config = require_once _ROOTPATH_ . '/config.php';
+            $imagesArray = $config['carrouselImages'];
+            $newImagesArray = [];
+            $uploadsDirectory = $config['uploadsDirectory'];
+            $selectedImages = $_POST['imageName'];
+            if (count($selectedImages) != 3) {
+                throw new Error(Error::CHANGE_IMAGE_NOT_3);
+                return;
+            } else {
+                foreach ($selectedImages as $index => $name) {
+                    $imageName = basename($name);
+                    $newImagesArray[] = $imageName;
+                }
+                $config['carrouselImages'] = $newImagesArray;
+                $this->updateConfigFile($config);
+                echo "Les images ont été modifiées avec succès!";
+            }
+        } catch (Error $e) {
+            echo $e->getMessage();
         }
-        $config['carrouselImages'] = $newImagesArray;
-        $this->updateConfigFile($config);
-        echo "Les images ont été modifiées avec succès!";
     }
 
     public function updateConfigFile($config)
@@ -134,11 +149,5 @@ class AdminController extends Controller
                </div>';
             $index++;
         }
-    }
-
-    public function changeCarousselImages()
-    {
-        $uploadsDirectory = 'uploads/';
-        $newImages = $_FILES['newImages'];
     }
 }

@@ -16,6 +16,7 @@ class Error extends Exception
     public const FOOD_ALREADY_IN_DB = "<p class='alert alert-danger mb-0 mt-1'>Ce plat existe déjà, merci de regarder la liste des plats et de la supprimer si besoin</p><br>";
     public const PAGES_NOT_FOUND = "<p class='alert alert-danger mb-0 mt-1'>La page correspondante, n'existe pas. Vous allez être redirigé dans les 5 prochaines secondes</p><br>";
     public const MENU_NOT_CREATED = "<p class='alert alert-danger mb-0 mt-1'>Une erreur est survenue lors de la création du menu</p><br>";
+    public const CHANGE_IMAGE_NOT_3 = "<p class='alert alert-danger mb-0 mt-1'>Veuillez sélectionner trois images uniquement</p><br>";
 
     public function __construct(string $message)
     {

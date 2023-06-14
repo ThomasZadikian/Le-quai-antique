@@ -18,11 +18,12 @@ if (isset($_POST['upload'])) {
     var_dump($_FILES);
 }
 ?>
+
 <div class="container">
     <div class="container mt-5 mb-5 alert alert-primary">
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="file" class="form-label">Sélectionnez un fichier :</label>
+                <label for="file" class="form-label">Ajoutez un fichier (image uniquement)</label>
                 <input type="file" class="form-control" name="file" id="file">
             </div>
             <button type="submit" name="upload" class="btn btn-primary">Télécharger</button>
@@ -31,22 +32,13 @@ if (isset($_POST['upload'])) {
     <div class="container mb-5">
         <div class="d-flex justify-content-around">
             <form class="m-2 alert alert-primary" method="POST">
-                <h2>Modifier les images défilantes :</h2>
+                <h2>Modifier les images défilantes (Merci de n'en sélectionner que 3) :</h2>
                 <div class="row">
                     <?= $adminController->displayAllImages('modifier', 'carroussel', 'checkbox') ?>
                 </div>
                 <div>
                 </div>
-                <button type='button' class="btn btn-primary " name="changeCarroussel" type="submit">Modifier</button>
-            </form>
-
-            <!-- <form class="m-2 alert alert-primary" method="POST" enctype="multipart/form-data">
-                <h2>Modifier les images des menus : </h2>
-                <div class="row">
-                    <?= $adminController->displayAllImages('modifier', 'menuImages', 'checkbox') ?>
-                </div>
-                <button type='button' class="btn btn-primary " name="TODO" type="submit">Modifier</button>
-            </form> -->
+                <button class="btn btn-primary " name="changeCarroussel" type="submit">Modifier</button>
         </div>
     </div>
     <div class="container alert alert-danger">
