@@ -16,7 +16,7 @@
           <a class="nav-link" href="index.php?controller=pageManagement&action=admin&adminAction=planning">Horaires du restaurants et planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?controller=pageManagement&action=admin&adminAction=users">Gestion des utilisateurs</a></a>
+          <a class="nav-link" href="index.php?controller=pageManagement&action=admin&adminAction=users">Modifier les images de l'accueil</a></a>
         </li>
       </ul>
     </div>
