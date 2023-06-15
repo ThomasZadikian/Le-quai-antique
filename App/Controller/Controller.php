@@ -27,6 +27,9 @@ class Controller
                     case 'connect':
                         $this->render('/pages/connect_page');
                         break;
+                    case 'reservation':
+                        $this->render('/pages/reservation_page');
+                        break;
                     case 'pageManagement':
                         if (isset($_SESSION['role'])) {
                             switch ($_SESSION['role']) {
