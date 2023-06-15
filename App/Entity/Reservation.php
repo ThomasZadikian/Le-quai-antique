@@ -8,10 +8,17 @@ use App\Entity\Error;
 
 class Reservation
 {
+    public function verifyInformations($date)
+    {
+        $searchInDb = new FindIntoDb;
+        $schedule = $searchInDb->getScheduleValues();
 
-    // Intégrer récupération des disponibilités
-    // intégrer récupération des allergies 
-    // Logique comparatif des allergies entre le menu et celle de $user
-    // Logique de comparaison etre la date et l'ID des journées
+        $selectedDayOfWeek = date('N', strtotime($date));
 
+        foreach ($schedule as $key => $entry) {
+            if ($entry['day_of_week'] == $selectedDayOfWeek) {
+            }
+            //LOGIC FOR CHECK IF DAY = ID in DB
+        }
+    }
 }
