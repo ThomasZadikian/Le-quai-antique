@@ -14,6 +14,7 @@ class FindIntoDb
     protected $users = [];
     protected $allMenu = [];
     protected $homeMenu = [];
+    protected $scheduleValues = [];
 
     public function getAllergen()
     {
@@ -49,6 +50,11 @@ class FindIntoDb
     {
         $this->homeMenu = $this->findHomeMenu($id);
         return (!empty($this->homeMenu)) ? $this->homeMenu[0] : null;
+    }
+    public function getScheduleValues()
+    {
+        $this->scheduleValues = $this->findScheduleValue();
+        return (!empty($this->scheduleValues)) ? $this->scheduleValues : null;
     }
 
     private function findAllAllergensIntoDb()
@@ -217,6 +223,34 @@ class FindIntoDb
             }
             return $homeMenu;
         } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    private function findScheduleValue(): array
+    {
+        try {
+            $db = Mysql::getInstance();
+            $connect = $db->getPDO();
+            $req = $connect->prepare("
+            SELECT *, 
+            CASE day_of_week 
+            WHEN 1 THEN 'lundi'
+            WHEN 2 THEN 'mardi'
+            WHEN 3 THEN 'mercredi'
+            WHEN 4 THEN 'jeudi'
+            WHEN 5 THEN 'vendredi'
+            WHEN 6 THEN 'samedi'
+            WHEN 7 THEN 'dimanche'
+            END AS 'jour_de_la_semaine'
+            from schedule");
+            if ($req->execute()) {
+                $response = $req->fetchAll(\PDO::FETCH_ASSOC);
+                return $response;
+            } else {
+                throw new Error(Error::ERROR_APPEND);
+            }
+        } catch (Error $e) {
             echo $e->getMessage();
         }
     }
