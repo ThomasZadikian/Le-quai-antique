@@ -26,4 +26,13 @@ class Tools
         sort($this->allergens);
         return $this->allergens;
     }
+
+    function sortByType(array $array)
+    {
+        usort($array, function ($a, $b) {
+            return strcmp($a['type'], $b['type']);
+        });
+
+        return $array;
+    }
 }

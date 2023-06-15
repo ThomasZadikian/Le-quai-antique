@@ -120,4 +120,55 @@ class FoodController
         echo '</select>
         </ul>';
     }
+
+    public function generateFoodCard()
+    {
+        $searchInDb = new FindIntoDb;
+        $allFood = $searchInDb->getFood('');
+        $tools = new Tools;
+        $sortByType = $tools->sortByType($allFood);
+
+        $types = [
+            'entree' => 'Nos entrées',
+            'plat' => 'Nos plats',
+            'dessert' => 'Nos desserts'
+        ];
+
+        echo '<div class="container">
+        <div class="row">';
+
+        foreach ($types as $type => $label) {
+            echo '<div class="col-md-12">
+                <h3>' . $label . '</h3>
+            </div>';
+
+            foreach ($sortByType as $key => $value) {
+                if ($value['type'] === $type) {
+                    echo '<div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">' . $value['name'] . '</h5>
+                                <p class="card-text">' . $value['description'] . '</p>
+                                <div class="mb-3">
+                                    <label for="allergen-' . $key . '" class="form-label">Allergènes :</label>
+                                    <select class="form-select" id="allergen-' . $key . '">';
+
+                    $allergens = explode(',', $value['allergen']);
+                    foreach ($allergens as $allergen) {
+                        echo '<option value="' . trim($allergen) . '">' . ucfirst(trim($allergen)) . '</option>';
+                    }
+
+                    echo '</select>
+                            </div>
+                            <p class="card-text">Prix : ' . $value['price'] . ' €</p>
+                        </div>
+                    </div>
+                </div>';
+                }
+            }
+        }
+
+        echo '</div>
+    </div>';
+    }
 }

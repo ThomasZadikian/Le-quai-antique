@@ -14,8 +14,8 @@ class Controller
         try {
             if (isset($_GET['controller'])) {
                 switch ($_GET['controller']) {
-                    case 'contact':
-                        $this->render('pages/contact_page');
+                    case 'foodCard':
+                        $this->render('pages/food_card_page');
                         break;
                     case 'home':
                         $homeController = new HomeController();

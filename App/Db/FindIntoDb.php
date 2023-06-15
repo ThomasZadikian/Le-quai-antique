@@ -73,17 +73,25 @@ class FindIntoDb
         }
     }
 
-    private function findAllFood(string $type)
+    private function findAllFood(string $type = '')
     {
         try {
             $db = Mysql::getInstance();
             $connect = $db->getPDO();
-            $req = $connect->prepare("SELECT * FROM foods WHERE type = :type");
-            $req->bindValue(':type', $type, \PDO::PARAM_STR);
-            if ($req->execute()) {
-                $this->food = [];
-                while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
-                    $this->food[$row['name']] = $row['name'];
+            if ($type === '') {
+                $req = $connect->prepare("SELECT * FROM foods");
+                if ($req->execute()) {
+                    $results = $req->fetchAll(\PDO::FETCH_ASSOC);
+                    $this->food = $results;
+                }
+            } else {
+                $req = $connect->prepare("SELECT * FROM foods WHERE type = :type");
+                $req->bindValue(':type', $type, \PDO::PARAM_STR);
+                if ($req->execute()) {
+                    $this->food = [];
+                    while ($row = $req->fetch(\PDO::FETCH_ASSOC)) {
+                        $this->food[$row['name']] = $row['name'];
+                    }
                 }
             }
         } catch (\PDOException $e) {
