@@ -84,4 +84,25 @@ class ScheduleController
             echo $e->getMessage();
         }
     }
+
+    public function displaySchedule()
+    {
+        $searchInDb = new FindIntoDb;
+        $schedule = $searchInDb->getScheduleValues();
+        echo
+        '<div class="card col-xxl-4" style="border : none;">
+            <div class="card-header">
+                Horaires
+            </div> ';
+        foreach ($schedule as $key => $value) {
+            echo '<div class="card-header" id="horaire-' . $key . '">
+                    <strong>' . ucfirst($value['jour_de_la_semaine']) . '</strong>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Midi : ' . $value['launch_opening_time'] . ' - ' . $value['launch_closing_time'] . '</li>
+                    <li class="list-group-item">Soir : ' . $value['dinner_opening_time'] . ' - ' . $value['dinner_closing_time'] . '</li>
+                </ul>';
+        }
+        echo '</div>';
+    }
 }
