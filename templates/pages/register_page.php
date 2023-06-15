@@ -5,7 +5,7 @@ use App\Entity\UserManagement\Register;
 use App\Db\FindIntoDb;
 
 $allergen = new FindIntoDb;
-$allergen->findAllAllergensIntoDb();
+$allergen->getAllergen();
 
 if (!empty($_POST)) {
     extract($_POST);

@@ -5,6 +5,9 @@ use App\Entity\Reservation;
 use App\Entity\UserManagement\User;
 
 $reservation = new Reservation;
+$user = new User;
+$user->setUserInformations();
+$userInformations = $user->getUserInformations();
 ?>
 
 <div class="container">
@@ -12,8 +15,16 @@ $reservation = new Reservation;
     <div id="reservationForm">
         <form>
             <div class="form-group">
+                <label for="lastName">Votre nom de famille </label>
+                <input type="text" class="form-control" id="lastName" value="<?= $userInformations['lastName'] ?>" placeholder="Nombre de couverts">
+            </div>
+            <div class="form-group">
+                <label for="firstName">Votre nom de famille </label>
+                <input type="text" class="form-control" id="firstName" value="<?= $userInformations['firstName'] ?>" placeholder="Nombre de couverts">
+            </div>
+            <div class="form-group">
                 <label for="number_of_seats">Nombre de couverts :</label>
-                <input type="number" class="form-control" id="number_of_seats" value="<?php $reservation->defaultCouvert(); ?>" placeholder="Nombre de couverts">
+                <input type="number" class="form-control" id="number_of_seats" value="<?= $userInformations['companions'] ?>" placeholder="Nombre de couverts">
             </div>
 
             <div class="form-group">
@@ -39,7 +50,7 @@ $reservation = new Reservation;
 
             <div class="form-group">
                 <label for="allergies">Mention des allergies :</label>
-                <textarea class="form-control" id="allergies" placeholder="Mention des allergies"></textarea>
+                <input type="text" class="form-control" id="allergies" value="<?= $userInformations['allergen'] ?>" placeholder="Mention des allergies"></input>
             </div>
 
             <button type="submit" class="btn btn-primary">Valider</button>
