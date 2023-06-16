@@ -4,46 +4,53 @@ require_once _ROOTPATH_ . '/templates/header.php';
 use App\Entity\Reservation;
 use App\Entity\UserManagement\User;
 
-$reservation = new Reservation;
 $user = new User;
 $user->setUserInformations();
+$userInformations = $user->getUserInformations();
 if (isset($_POST['date'])) {
     $date = $_POST['date'];
-    $userInformations = $user->getUserInformations();
+    $reservation = new Reservation;
 }
 
 ?>
 <script>
-    $(document).ready(function() {
-        $('#date').on('change', function() {
-            let selectedDate = $(this).val();
-            $.post('index.php?controller=reservation', {
-                action: 'date',
-                date: selectedDate
-            }, function(response) {
-                console.log(response);
-                $('#time').html(response);
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+        let request = new XMLHttpRequest();
+        let date = document.getElementById('date');
+        date.addEventListener('change', function() {
+            event.preventDefault();
+            let selectedDate = date.value;
+            let formData = new FormData();
+            formData.append('date', selectedDate);
+            console.log(selectedDate);
+            request.open("POST", "index.php?controller=reservation", true);
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    console.log("La requête s'est effectuée avec succès");
+                    document.getElementById("selectedDate").innerHTML = request.responseText;
+                }
+            }
+            request.send(formData);
         });
     });
 </script>
 
-
 <div class="container">
+    <div id="selectedDate"></div>
     <h1>Réserver une table</h1>
     <div id="reservationForm">
         <form method="post">
             <div class="form-group">
                 <label for="lastName">Votre nom de famille </label>
-                <input type="text" name='firstName' class="form-control" id="lastName" value="<?= $userInformations['lastName'] ?>" placeholder="Nombre de couverts">
+                <input type="text" name='firstName' class="form-control" id="lastName" value="<?= isset($userInformations['lastName']) ? $userInformations['lastName'] : ''; ?>" placeholder="Nombre de couverts">
             </div>
             <div class="form-group">
                 <label for="firstName">Votre nom de famille </label>
-                <input type="text" name="lastName" class="form-control" id="firstName" value="<?= $userInformations['firstName'] ?>" placeholder="Nombre de couverts">
+                <input type="text" name="lastName" class="form-control" id="firstName" value="<?= isset($userInformations['firstName']) ? $userInformations['firstName'] : ''; ?>" placeholder="Nombre de couverts">
             </div>
             <div class="form-group">
                 <label for="number_of_seats">Nombre de couverts :</label>
-                <input type="number" name='companions' class="form-control" id="number_of_seats" value="<?= $userInformations['companions'] ?>" placeholder="Nombre de couverts">
+                <input type="number" name='companions' class="form-control" id="number_of_seats" value="<?= isset($userInformations['companions']) ? $userInformations['companions'] : ''; ?>" placeholder="Nombre de couverts">
             </div>
 
             <div class="form-group">
@@ -55,13 +62,13 @@ if (isset($_POST['date'])) {
             <div class="form-group">
                 <label for="time">Heure prévue :</label>
                 <select class="form-control" id="time">
-                    <option value="">NAME OF RESERVATION SLOT</option>
+                    <?= isset($_POST['date']) ? $reservation->setSchedule($date) : '<option>Veuillez sélectionner une date</option>' ?>
                 </select>
             </div>
 
             <div class=" form-group">
                 <label for="allergies">Mention des allergies :</label>
-                <input type="text" class="form-control" id="allergies" value="<?= $userInformations['allergen'] ?>" placeholder="Mention des allergies"></input>
+                <input type="text" class="form-control" id="allergies" value="<?= isset($userInformations['allergen']) ? $userInformations['allergen'] : ''; ?>" placeholder="Mention des allergies"></input>
             </div>
 
             <button type="submit" name="reservation" class="btn btn-primary">Valider</button>
