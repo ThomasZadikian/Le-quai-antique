@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use Exception;
 use App\Entity\Error;
-use App\Entity\FoodManagement;
+use App\Entity\Reservation;
 
 class Controller
 {
