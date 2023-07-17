@@ -1,5 +1,4 @@
--- Active: 1683700576265@@localhost@3306@le_quai_antique
-Context du projet :
+Contexte du projet :
 
 LE PROJET Restaurant
 
