@@ -1,3 +1,4 @@
+-- Active: 1683700576265@@localhost@3306@le_quai_antique
 Context du projet :
 
 LE PROJET Restaurant
@@ -23,13 +24,21 @@ Extension MySQL afin de gérer la base de donnée directement depuis VS code
 
 Faire fonctionner le site :
 Télécharger l'archive du site
-Lancer l'historique de la base de donnée pour importer la base de donnée
+Utiliser le dump de la base de donnée (le_quai_antique.sql) pour importer la base de donnée
 Héberger la base de donnée en local (via Xampp ou MySQL de VSCode) avec les données suivantes :
 
-    db name : le_quai_antique
-    username : root
-    password : root
-    port : 3306
-    host : localhost
+        db name : le_quai_antique
+        username : root
+        password : root
+        port : 3306
+        host : localhost
 
-    Exécuter index.php afin de lancer l'hébergement local du site
+        Exécuter index.php afin de lancer l'hébergement local du site
+        informations de connexion afin de tester les fonctionnalités du site
+        compte admin :
+        email : admin@admin.com
+        password : 123456789
+
+        compte user :
+        email : user@user.com
+        password : 123456789
