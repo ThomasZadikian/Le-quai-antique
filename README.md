@@ -22,9 +22,10 @@ VS Code avec l'extension live Server afin de lancer le site en local
 Extension MySQL afin de gérer la base de donnée directement depuis VS code
 
 Faire fonctionner le site :
-Télécharger l'archive du site
-Utiliser le dump de la base de donnée (le_quai_antique.sql) pour importer la base de donnée
-Héberger la base de donnée en local (via Xampp ou MySQL de VSCode) avec les données suivantes :
+
+        Télécharger l'archive du site
+        Utiliser le dump de la base de donnée (le_quai_antique.sql) pour importer la base de donnée
+        Héberger la base de donnée en local (via Xampp ou MySQL de VSCode) avec les données suivantes :
 
         db name : le_quai_antique
         username : root
