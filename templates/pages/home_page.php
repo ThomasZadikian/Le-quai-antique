@@ -27,9 +27,6 @@ $scheduleController = new ScheduleController;
                 <p class="card-text">Venez déguster notre magnifique menu de ce midi !</p>
             </div>
             <?= $menuFood->generateHomeMenu(1) ?>
-            <div class="card-body">
-
-            </div>
         </div>
 
         <!-- Card for menu soir -->
@@ -40,10 +37,6 @@ $scheduleController = new ScheduleController;
                 <p class="card-text">Votre dîner de ce soir ? Il est indiqué juste en dessous.</p>
             </div>
             <?= $menuFood->generateHomeMenu(2) ?>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
         </div>
         <?= $scheduleController->displaySchedule() ?>
     </article>
