@@ -240,26 +240,15 @@ class FindIntoDb
         try {
             $db = Mysql::getInstance();
             $connect = $db->getPDO();
-            $req = $connect->prepare("
-            SELECT *, 
-            CASE day_of_week 
-            WHEN 1 THEN 'lundi'
-            WHEN 2 THEN 'mardi'
-            WHEN 3 THEN 'mercredi'
-            WHEN 4 THEN 'jeudi'
-            WHEN 5 THEN 'vendredi'
-            WHEN 6 THEN 'samedi'
-            WHEN 7 THEN 'dimanche'
-            END AS 'jour_de_la_semaine'
-            from schedule");
+            $req = $connect->prepare("SELECT day_of_week,opening_time,closing_time from schedule");
             if ($req->execute()) {
-                $response = $req->fetchAll(\PDO::FETCH_ASSOC);
-                return $response;
+                return $req->fetchAll(\PDO::FETCH_ASSOC);
             } else {
                 throw new Error(Error::ERROR_APPEND);
             }
         } catch (Error $e) {
             echo $e->getMessage();
+            return [];
         }
     }
 }

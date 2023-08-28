@@ -84,19 +84,20 @@ class ScheduleController
             echo $e->getMessage();
         }
     }
-
     public function displaySchedule()
     {
-        $searchInDb = new FindIntoDb;
-        $schedule = $searchInDb->getScheduleValues();
-        foreach ($schedule as $key => $value) {
-            echo '<div class="card-header" id="horaire-' . $key . '">
-                    <strong>' . ucfirst($value['jour_de_la_semaine']) . '</strong>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Midi : ' . $value['launch_opening_time'] . ' - ' . $value['launch_closing_time'] . '</li>
-                    <li class="list-group-item">Soir : ' . $value['dinner_opening_time'] . ' - ' . $value['dinner_closing_time'] . '</li>
-                </ul>';
+        $schedule = new FindIntoDb;
+        $schedule = $schedule->getScheduleValues();
+
+        foreach ($schedule as $day => $daySchedule) {
+            echo '
+            <div class="card-header ms-2">
+                <strong>' . $daySchedule['day_of_week'] . '</strong>
+            </div>
+            <ul class="list-group list-group-flush ms-3">
+                <li class="list-group-item bg-dark text-white">Ouvre à : ' . $daySchedule['opening_time'] . '</li>
+                <li class="list-group-item bg-dark text-white">Ferme à : ' . $daySchedule['closing_time'] . '</li>
+            </ul>';
         }
     }
 }

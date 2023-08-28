@@ -51,10 +51,10 @@ $scheduleController = new ScheduleController;
             <div class="accordion-item text-white">
                 <h2 class="accordion-header">
                     <button class="accordion-button bg-dark rounded text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSchedule" aria-expanded="true" aria-controls="collapseSchedule">
-                        Découvrir les horaires
+                        Afficher les horaires
                     </button>
                 </h2>
-                <div id="collapseSchedule" class="accordion-collapse collapse card-body" data-bs-parent="#accordionsSchedule">
+                <div id="collapseSchedule" class="accordion-collapse collapse show card-body" data-bs-parent="#accordionsSchedule">
                     <?= $scheduleController->displaySchedule() ?>
                 </div>
             </div>

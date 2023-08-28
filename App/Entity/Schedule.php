@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Db\FindIntoDb;
+use Error;
 
 class Schedule
 {
