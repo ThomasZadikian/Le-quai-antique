@@ -11,9 +11,9 @@
     <title>Quai antique</title>
 </head>
 
-<body>
-    <div class="container-fluid">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom container">
+<body --bs-body-color>
+    <header class="container-fluid">
+        <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom container">
             <p class="alert alert-danger"> Ceci est site d'exemple, merci de ne pas entrer d'informations personnelles</p>
             <?php
             if (isset($_SESSION['id'])) {
@@ -29,12 +29,13 @@
             } else {
                 echo "
                 <ul class='nav col-12 col-md-auto mb-2 justify-content-center mb-md-0'>
-                <li><a href='index.php?controller=home' class='nav-link px-2 link-secondary'>Home</a></li>
-                <li><a href='index.php?controller=foodCard' class='nav-link px-2 link-secondary'>Carte du restaurant</a></li>  
+                <li><a href='index.php?controller=home' class='nav-link px-2 '><button type='button' class='btn btn-dark me-2'>Home</button></a></li>
+                <li><a href='index.php?controller=foodCard' class='nav-link px-2 link-secondary'><button type='button' class='btn btn-dark me-2'>Carte du restaurant</button></a></li>  
             </ul>
             <div class='col-md-3 text-end'>
-                <a href='index.php?controller=connect'><button type='button' class='btn btn-outline-primary me-2'>Me connecter</button></a>
+                <a href='index.php?controller=connect'><button type='button' class=' btn btn-dark me-2'>Me connecter</button></a>
             </div>";
             } ?>
-
-        </header>
+        </nav>
+    </header>
+    <main class="container">

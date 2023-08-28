@@ -73,7 +73,6 @@ class Controller
                 require_once $filePath;
             }
         } catch (Exception $e) {
-            header("Refresh: 5; URL=index.php");
             $this->render('/errors/defaultError', ['error' => $e->getMessage()]);
         }
     }

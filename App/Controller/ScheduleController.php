@@ -89,11 +89,6 @@ class ScheduleController
     {
         $searchInDb = new FindIntoDb;
         $schedule = $searchInDb->getScheduleValues();
-        echo
-        '<div class="card col-xxl-4" style="border : none;">
-            <div class="card-header">
-                Horaires
-            </div> ';
         foreach ($schedule as $key => $value) {
             echo '<div class="card-header" id="horaire-' . $key . '">
                     <strong>' . ucfirst($value['jour_de_la_semaine']) . '</strong>
@@ -103,6 +98,5 @@ class ScheduleController
                     <li class="list-group-item">Soir : ' . $value['dinner_opening_time'] . ' - ' . $value['dinner_closing_time'] . '</li>
                 </ul>';
         }
-        echo '</div>';
     }
 }

@@ -1,5 +1,9 @@
+body {
+  background-color: #333333;
+}
+
 .presentationImg {
-  height: 55vh;
+  height: 35vh;
   width: 100%;
   border-radius: 10px;
   margin-top: 5px;
@@ -17,4 +21,9 @@
   width: 200px;
   height: 200px;
   object-fit: cover;
+}
+
+.accordion-item {
+  background-color: #212529;
+  border: none;
 }

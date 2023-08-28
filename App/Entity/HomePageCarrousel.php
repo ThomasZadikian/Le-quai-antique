@@ -40,6 +40,7 @@ class HomePageCarrousel
             }
             if (isset($carrouselImageDescriptions[$index])) {
                 echo '<p>' . $carrouselImageDescriptions[$index] . '</p>';
+                echo '<a href="index.php?controller=reservation"><button class="btn w-25 btn-dark" name="reservation" style="width: 100vh;">Réserver une table</button></a>';
             }
             echo '</div>
             </div>';
