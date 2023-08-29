@@ -111,24 +111,9 @@ class FoodController
         <li class="list-group-item bg-dark text-white"> Entrée : <strong>' . $homeMenu['entree_name'] . '</strong></li>
         <li class="list-group-item bg-dark text-white"> Plat : <strong>' . $homeMenu['plat_name'] . ' </strong></li>
         <li class="list-group-item bg-dark text-white"> Dessert : <strong>' . $homeMenu['dessert_name'] . ' </strong></li>
-        <li class="list-group-item bg-dark text-white"> Prix total : <strong>' . $homeMenu['total_price'] . ' € </strong> ' . '</li>
-        <div class="accordion bg-dark text-white" id="accordionAllergens' . $id . '">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllergens' . $id . '" aria-expanded="true" aria-controls="collapseAllergens' . $id . '">
-                    Voir les allergènes de ce plat
-                </button>
-            </h2>
-            <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse" data-bs-parent="#accordionAllergens' . $id . '">
-                <div class="accordion-body">';
-        foreach ($allergens as $id => $value) {
-            echo '<p value="allergens" class="text-white">' . ucfirst($value) . '</p>';
-        }
-        echo '          </div>
-            </div>
-        </div>
-    </div>
-        </ul>';
+        <li class="list-group-item bg-dark text-white"> Prix total : <strong>' . $homeMenu['total_price'] . ' € </strong> ' . '</li>';
+        $this->generateAlergensAccordions($id, $allergens);
+        echo '</ul>';
     }
 
     public function generateFoodCard()
@@ -144,41 +129,68 @@ class FoodController
             'dessert' => 'Nos desserts'
         ];
 
-        echo '<div class="container">
+        echo '
+        <div class="container">
         <div class="row">';
 
         foreach ($types as $type => $label) {
-            echo '<div class="col-md-12">
+            echo '<div class="col-md-12 text-white">
                 <h3>' . $label . '</h3>
             </div>';
 
             foreach ($sortByType as $key => $value) {
                 if ($value['type'] === $type) {
-                    echo '<div class="col-md-6 mb-3">
-                        <div class="card">
+                    echo '
+                    <div class="col-md-6 mb-3 ">
+                        <div class="card bg-dark text-white">
                             <div class="card-body">
                                 <h5 class="card-title">' . $value['name'] . '</h5>
                                 <p class="card-text">' . $value['description'] . '</p>
                                 <div class="mb-3">
-                                    <label for="allergen-' . $key . '" class="form-label">Allergènes :</label>
-                                    <select class="form-select" id="allergen-' . $key . '">';
+                                    <label for="allergen-' . $key . '" class="form-label">Allergènes :</label>';
 
                     $allergens = explode(',', $value['allergen']);
-                    foreach ($allergens as $allergen) {
-                        echo '<option value="' . trim($allergen) . '">' . ucfirst(trim($allergen)) . '</option>';
-                    }
 
+                    $this->generateAlergensAccordions($key, $allergens);
                     echo '</select>
-                            </div>
-                            <p class="card-text">Prix : ' . $value['price'] . ' €</p>
-                        </div>
-                    </div>
+                </div>
+                <p class="card-text">Prix : ' . $value['price'] . ' €</p>
+                </div>
+                </div>
                 </div>';
                 }
             }
         }
 
-        echo '</div>
+        echo
+        '
+        </div>
     </div>';
+    }
+
+    public function generateAlergensAccordions($id, $allergensArray)
+    {
+        echo
+        '<div class="accordion bg-dark text-white" id="accordionAllergens' . $id . '">
+                        <div class="accordion-item text-white">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllergens' . $id . '" aria-expanded="true" aria-controls="collapseAllergens' . $id . '">
+                                    Voir les allergènes de ce plat
+                                </button>
+                            </h2>
+                        <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse" data-bs-parent="#accordionAllergens' . $id . '">
+                    <div class="accordion-body">';
+        foreach ($allergensArray as $allergen) {
+            if ($allergen !== '') {
+                echo '<p value="' . trim($allergen) . '">' . ucfirst(trim($allergen)) . '</p>';
+            } else {
+                echo '<p value="aucun">Aucun</p>';
+            }
+        }
+
+        echo '</div>
+                        </div>
+                    </div>
+                    </div> ';
     }
 }
