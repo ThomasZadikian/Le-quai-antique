@@ -178,7 +178,7 @@ class FoodController
                         Voir les allergènes de ce plat
                     </button>
                 </h2>
-            <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse" data-bs-parent="#accordionAllergens' . $id . '">
+            <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse bg-dark" data-bs-parent="#accordionAllergens' . $id . '">
         <div class="accordion-body">';
         foreach ($allergensArray as $allergen) {
             if ($allergen !== '') {
