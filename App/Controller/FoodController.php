@@ -171,15 +171,15 @@ class FoodController
     public function generateAlergensAccordions($id, $allergensArray)
     {
         echo
-        '<div class="accordion bg-dark text-white" id="accordionAllergens' . $id . '">
-                        <div class="accordion-item text-white">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllergens' . $id . '" aria-expanded="true" aria-controls="collapseAllergens' . $id . '">
-                                    Voir les allergènes de ce plat
-                                </button>
-                            </h2>
-                        <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse" data-bs-parent="#accordionAllergens' . $id . '">
-                    <div class="accordion-body">';
+        '<div class="accordion accordion-flush bg-dark text-white" id="accordionAllergens' . $id . '">
+            <div class="accordion-item text-white">
+                <h2 class="accordion-header">
+                    <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllergens' . $id . '" aria-expanded="true" aria-controls="collapseAllergens' . $id . '">
+                        Voir les allergènes de ce plat
+                    </button>
+                </h2>
+            <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse" data-bs-parent="#accordionAllergens' . $id . '">
+        <div class="accordion-body">';
         foreach ($allergensArray as $allergen) {
             if ($allergen !== '') {
                 echo '<p value="' . trim($allergen) . '">' . ucfirst(trim($allergen)) . '</p>';
@@ -188,9 +188,10 @@ class FoodController
             }
         }
 
-        echo '</div>
-                        </div>
-                    </div>
-                    </div> ';
+        echo '
+            </div>
+        </div>
+        </div>
+        </div> ';
     }
 }

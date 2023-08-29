@@ -6,8 +6,7 @@ use App\Controller\FoodController;
 $foodList = new FoodController;
 $foodCard = $foodList->generateFoodCard();
 ?>
-<h1>Carte du restaurant</h1>
-<div class="container">
+<section>
     <?= $foodCard; ?>
-</div>
+</section>
 <?php require_once _ROOTPATH_ . '/templates/footer.php' ?>
