@@ -108,16 +108,26 @@ class FoodController
         $allergens = $sortAllergen->sortAllergens($homeMenu);
         echo
         '<ul class="list-group list-group-flush">
-        <li class="list-group-item">' . $homeMenu['entree_name'] . '</li>
-        <li class="list-group-item">' . $homeMenu['plat_name'] . '</li>
-        <li class="list-group-item">' . $homeMenu['dessert_name'] . '</li>
-        <li class="list-group-item">' . $homeMenu['total_price'] . ' € ' . '</li>
-        <select class="form-select" aria-label="Menu déroulant">
-        <option selected>Afficher la liste des allergenes </option>';
+        <li class="list-group-item bg-dark text-white"> Entrée : <strong>' . $homeMenu['entree_name'] . '</strong></li>
+        <li class="list-group-item bg-dark text-white"> Plat : <strong>' . $homeMenu['plat_name'] . ' </strong></li>
+        <li class="list-group-item bg-dark text-white"> Dessert : <strong>' . $homeMenu['dessert_name'] . ' </strong></li>
+        <li class="list-group-item bg-dark text-white"> Prix total : <strong>' . $homeMenu['total_price'] . ' € </strong> ' . '</li>
+        <div class="accordion bg-dark text-white" id="accordionAllergens' . $id . '">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllergens' . $id . '" aria-expanded="true" aria-controls="collapseAllergens' . $id . '">
+                    Voir les allergènes de ce plat
+                </button>
+            </h2>
+            <div id="collapseAllergens' . $id . '" class="accordion-collapse collapse" data-bs-parent="#accordionAllergens' . $id . '">
+                <div class="accordion-body">';
         foreach ($allergens as $id => $value) {
-            echo '<option value="allergens">' . ucfirst($value) . '</option>';
+            echo '<p value="allergens" class="text-white">' . ucfirst($value) . '</p>';
         }
-        echo '</select>
+        echo '          </div>
+            </div>
+        </div>
+    </div>
         </ul>';
     }
 

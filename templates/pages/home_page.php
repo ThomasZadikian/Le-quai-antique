@@ -15,40 +15,40 @@ $scheduleController = new ScheduleController;
     <?= $homePageCarrousel->displayCarrousel();  ?>
 </section>
 <article class="row row-col-12 mt-2">
-    <section class="col-xxl-5">
-        <div class="accordion" id="accordionMenu">
-            <div class="accordion-item text-white">
-                <div class="card bg-dark mb-2">
-                    <img src="../../uploads/example-04.jpg" class="card-img-top rounded" alt="..." style="object-fit: cover; height: 10vh;">
-                    <h2 class="accordion-header ">
-                        <button class="accordion-button bg-dark rounded text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenuOne" aria-expanded="true" aria-controls="collapseMenuOne">
-                            Le menu de ce midi
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseMenuOne" class="accordion-collapse collapse card-body" data-bs-parent="#accordionMenu">
-                    <?= $menuFood->generateHomeMenu(1) ?>
+    <section class="col-xxl-6">
+        <div class="accordion accordion-flush" id="accordionMenu">
+            <div class="accordion-item mb-2 rounded">
+                <h2 class="accordion-header ">
+                    <button class="accordion-button bg-dark rounded text-white d-flex flex-column" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu1" aria-expanded="true" aria-controls="collapseMenu1">
+                        <img src=" ../../uploads/example-04.jpg" class="card-img-top rounded mb-2" alt="..." style="object-fit: cover; height: 10vh;">
+                        Le menu de ce midi
+                    </button>
+                </h2>
+                <div class="accordion-collapse show" id="collapseMenu1" data-bs-parent="#collapseMenu1">
+                    <div class="card-body">
+                        <?= $menuFood->generateHomeMenu(1) ?>
+                    </div>
                 </div>
             </div>
-            <div class="accordion-item text-white">
-                <div class="card bg-dark mb-2">
-                    <img src="../../uploads/example-05.jpg" class="card-img-top rounded img-fluid" alt="..." style="object-fit: cover; height: 10vh;">
-                    <h2 class="accordion-header ">
-                        <button class="accordion-button bg-dark rounded text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenuTwo" aria-expanded="true" aria-controls="collapseMenuTwo">
-                            Le menu de ce soir
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseMenuTwo" class="accordion-collapse collapse card-body" data-bs-parent="#accordionMenu">
-                    <?= $menuFood->generateHomeMenu(2) ?>
+            <div class="accordion-item rounded">
+                <h2 class="accordion-header">
+                    <button class="accordion-button bg-dark rounded text-white d-flex flex-column" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu2" aria-expanded="true" aria-controls="collapseMenu2">
+                        <img src=" ../../uploads/example-05.jpg" class="card-img-top rounded mb-2" alt="..." style="object-fit: cover; height: 10vh;">
+                        Le menu de ce soir
+                    </button>
+                </h2>
+                <div class="accordion-collapse show" id="collapseMenu2" data-bs-parent="#collapseMenu2">
+                    <div class="card-body">
+                        <?= $menuFood->generateHomeMenu(2) ?>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="col-xxl-3"></section>
+    <section class="col-xxl-2"></section>
     <section class="col-xxl-4">
         <div class="accordion" id="accordionsSchedule">
-            <div class="accordion-item text-white">
+            <div class="accordion-item text-white border  border-0">
                 <h2 class="accordion-header">
                     <button class="accordion-button bg-dark rounded text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSchedule" aria-expanded="true" aria-controls="collapseSchedule">
                         Afficher les horaires
